@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestió Videojocs - ThunderForge</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+        h1 { color: #1a73e8; }
+        table { border-collapse: collapse; width: 100%; background: #fff; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #1a73e8; color: white; }
+        tr:nth-child(even){background-color: #f9f9f9;}
+        .reabastir { color: red; font-weight: bold; }
+        form { margin-top: 20px; background: #fff; padding: 20px; border: 1px solid #ddd; }
+        input[type="text"], input[type="number"] { padding: 5px; margin: 5px; width: 200px; }
+        input[type="submit"] { padding: 5px 15px; background-color: #1a73e8; color: white; border: none; cursor: pointer; }
+        input[type="submit"]:hover { background-color: #155ab6; }
+    </style>
+</head>
+<body>
+    <h1>Gestió Videojocs - ThunderForge</h1>
+
+    <table>
+        <tr>
+            <th>Títol</th>
+            <th>Plataforma</th>
+            <th>Preu (€)</th>
+            <th>Stock</th>
+            <th>Vendes</th>
+            <th>A reabastir?</th>
+        </tr>
+        {% for v in videojocs %}
+        <tr>
+            <td>{{ v.titol }}</td>
+            <td>{{ v.plataforma }}</td>
+            <td>{{ v.preu }}</td>
+            <td>{{ v.stock }}</td>
+            <td>{{ v.venudes }}</td>
+            <td>{% if v.a_reabastir %}<span class="reabastir">Sí</span>{% else %}No{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">No hi ha videojocs disponibles</td></tr>
+        {% endfor %}
+    </table>
+
+    <h2>Afegir nou videojoc</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Afegir">
+    </form>
+</body>
+</html>
+    
